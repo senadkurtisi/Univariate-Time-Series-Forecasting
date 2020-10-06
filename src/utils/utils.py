@@ -79,7 +79,7 @@ def train_loop(net, epochs, lr, wd, train_set, test_set, debug=True):
             test_loss = evaluate(net, test_set, history)
 
         if debug and (epoch + 1) % 200 == 0:
-            print(f"Epoch: {epoch+1} | Train Loss: {train_loss:.8f}"
+            print(f"Epoch: {epoch+1} | Train Loss: {train_loss:.8f}",
                   f" |  Test Loss: {test_loss:.8f}")
 
     if debug:

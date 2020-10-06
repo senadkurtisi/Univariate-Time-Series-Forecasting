@@ -28,6 +28,15 @@ def show_evaluation(net, dataset, scaler, debug=True):
     test_predict = scaler.inverse_transform(test_predict.cpu().data.numpy())
     dataset = scaler.inverse_transform(dataset.cpu().squeeze(-1).data.numpy())
 
+    # Plotting the original sequence vs. predicted
+    plt.figure(figsize=(8, 5))
+    plt.axvline(x=total_train_size, c='r')
+    plt.plot(dataset)
+    plt.plot(test_predict)
+    plt.title('Univariate Time-Series Forecast')
+    plt.legend(['Train-Test split', 'Target', 'Prediction'])
+    plt.show()
+
     if debug:
         # Calculating total MSE & MAE
         total_mse = (np.square(test_predict - dataset)).mean()
@@ -39,15 +48,7 @@ def show_evaluation(net, dataset, scaler, debug=True):
 
         print(f"Total MSE:  {total_mse:.4f}  |  Total MAE:  {total_mae:.4f}")
         print(f"Test MSE:  {test_mse:.4f}   |  Test MAE:  {test_mae:.4f}")
-    # Plotting the original sequence vs. predicted
-    plt.figure(figsize=(8, 5))
-    plt.axvline(x=total_train_size, c='r')
-    plt.plot(dataset)
-    plt.plot(test_predict)
-    plt.title('Univariate Time-Series Forecast')
-    plt.legend(['Train-Test split', 'Target', 'Prediction'])
-    plt.show()
-
+        
 
 def show_loss(history):
     ''' Display train and evaluation loss
