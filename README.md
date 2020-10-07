@@ -1,4 +1,4 @@
-# Univariate Time Series Forecasting
+# Univariate Time Series Forecasting of Car Sales
 
 ## Project description
 The goal of the project was forecasting the next month's number of car sales by using information about number of car sales in the previous months.
