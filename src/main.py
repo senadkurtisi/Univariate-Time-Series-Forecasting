@@ -14,14 +14,14 @@ if __name__ == "__main__":
 
     # Train the network
     if config.mode == "train":
-        # Create new instance of RNN
+        # Create new instance of the RNN
         net = SeqForecast(input_dim=train_set['X'].shape[-1],
                           hidden_dim=config.hidden_dim.default,
                           num_layers=config.num_layers)
         train_loop(net, config.epochs, config.lr, config.wd,
                    train_set, test_set, debug=True)
     else:
-        # Create new instance of RNN using default values
+        # Create new instance of the RNN using default values
         net = SeqForecast(input_dim=train_set['X'].shape[-1],
                           hidden_dim=parser.get_default('hidden_dim'),
                           num_layers=parser.get_default('num_layers'))

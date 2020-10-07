@@ -34,4 +34,5 @@ parser.add_argument("--lr", type=float, default=5e-4,
 parser.add_argument("--wd", type=float, default=6e-12,
                     help="L2 regularization weight decay")
 
+# Used to store training/model/dataset hyperparameters
 config = parser.parse_args()
