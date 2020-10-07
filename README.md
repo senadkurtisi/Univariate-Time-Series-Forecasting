@@ -13,7 +13,7 @@ The dataset is stored as a **csv** file [monthly-car-sales.csv](src/data/) downl
 ### Data preprocessing
 
 The dataset consists of two columns:
-1. Date in the year-month format
+1. Date in the YYYY-MM format
 2. Number of car sales in the according month
 
 Number of car sales feature was extracted and prepared for the RNN model by dividing the dataset into input-output pairs. Input consists of values of car sales in three consecutive months, while the target output is the number of car sales in the next consecutive month. Default value of time lag(length of each input example) is three as previously mentioned but it can be modified in the **lag** argument of the *ArgumentParser* object in the [globals.py](src/globals.py) file. With this approach (and these hyperparameters) we created a dataset with 104 input-output pairs.
