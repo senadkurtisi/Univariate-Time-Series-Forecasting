@@ -48,13 +48,18 @@ def show_evaluation(net, dataset, scaler, debug=True):
         # Calculating total MSE & MAE
         total_mse = (np.square(test_predict - dataset)).mean()
         total_mae = (np.abs(test_predict - dataset)).mean()
+        # Calculating train MSE & MAE
+        train_mse = (np.square(test_predict - dataset)
+                     )[total_train_size:].mean()
+        train_mae = (np.abs(test_predict - dataset))[:total_train_size].mean()
         # Calculating test MSE & MAE
         test_mse = (np.square(test_predict - dataset)
                     )[total_train_size:].mean()
-        test_mae = (np.abs(test_predict - dataset))[total_train_size:].mean()
+        test_mae = (np.abs(test_predict - dataset))[:total_train_size].mean()
 
         print(f"Total MSE:  {total_mse:.4f}  |  Total MAE:  {total_mae:.4f}")
-        print(f"Test MSE:  {test_mse:.4f}   |  Test MAE:  {test_mae:.4f}")
+        print(f"Train MSE:  {train_mse:.4f}  |  Train MAE:  {train_mae:.4f}")
+        print(f"Test MSE:   {test_mse:.4f}  |  Test MAE:   {test_mae:.4f}")
 
 
 def show_loss(history):

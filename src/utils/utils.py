@@ -29,13 +29,14 @@ def evaluate(net, test_set, history):
     return test_loss.item()
 
 
-def train(net, train_set, optimizer, history):
+def train(net, train_loader, optimizer, history):
     ''' Evaluates the performance of the
         RNN on the test set.
 
     Arguments:
         net (nn.Module): RNN net
-        train_set (dict): train input and target output
+        train_loader (DataLoader): train input and 
+                                   target output
         optimizer: optimizer object (Adam)
         history (dict): dict used for loss log
     Returns:
@@ -43,17 +44,23 @@ def train(net, train_set, optimizer, history):
     '''
     net.eval()
 
-    optimizer.zero_grad()
-    loss = loss_func(net(train_set['X']), train_set['Y'])
-    loss.backward()
-    optimizer.step()
+    total_num = 0
+    train_loss = 0
+    for input, target in train_loader:
+        optimizer.zero_grad()
+        loss = loss_func(net(input), target)
+        loss.backward()
+        optimizer.step()
 
-    history['train_loss'].append(loss.item())
+        train_loss += loss.item() * len(target)
+        total_num += len(target)
+
+    history['train_loss'].append(train_loss / total_num)
 
     return loss.item()
 
 
-def train_loop(net, epochs, lr, wd, train_set, test_set, debug=True):
+def train_loop(net, epochs, lr, wd, train_loader, test_set, debug=True):
     ''' Performs the training of the RNN using Adam optimizer.
         Train and evaluation losses are being logged.
 
@@ -62,7 +69,7 @@ def train_loop(net, epochs, lr, wd, train_set, test_set, debug=True):
         epochs (int): number of epochs we wish to train
         lr (float): max learning rate for Adam optimizer
         wd (float): L2 regularization weight decay
-        train_set (dict): train input and target output
+        train_loader (DataLoader): train input and target output
         test_set (dict): test input and target output
         debug (bool): Should we display train progress?
     '''
@@ -73,7 +80,7 @@ def train_loop(net, epochs, lr, wd, train_set, test_set, debug=True):
     optimizer = optim.Adam(net.parameters(), lr=lr, weight_decay=wd)
 
     for epoch in range(epochs):
-        train_loss = train(net, train_set, optimizer, history)
+        train_loss = train(net, train_loader, optimizer, history)
 
         with torch.no_grad():
             test_loss = evaluate(net, test_set, history)
@@ -93,7 +100,7 @@ def train_test_split(subsequences):
     Arguments:
         subsequences (): input-output pairs
     Returns:
-        train_set (dict): train set inputs and target outputs
+        train_loader (DataLoader): train set inputs and target outputs
         test_set (dict): test set inputs and target outputs
     '''
     # Get the length of the train set
@@ -102,17 +109,19 @@ def train_test_split(subsequences):
     test_seqs = subsequences[TRAIN_SIZE:]
 
     # Divide inputs and target outputs
-    trainX, trainY = [list(x) for x in zip(*train_seqs)]
-    testX, testY = [list(x) for x in zip(*test_seqs)]
+    trainX, trainY = [torch.Tensor(list(x)).to(device)
+                      for x in zip(*train_seqs)]
+    testX, testY = [torch.Tensor(list(x)).to(device)
+                    for x in zip(*test_seqs)]
 
-    train_set = dict()
-    train_set['X'] = torch.Tensor(trainX).to(device)
-    train_set['Y'] = torch.Tensor(trainY).to(device)
+    train_set = torch.utils.data.TensorDataset(trainX, trainY)
+    train_loader = torch.utils.data.DataLoader(train_set, batch_size=config.bs)
+
     test_set = dict()
     test_set['X'] = torch.Tensor(testX).to(device)
     test_set['Y'] = torch.Tensor(testY).to(device)
 
-    return train_set, test_set
+    return train_loader, test_set
 
 
 def extract_subsequences(sequence, lag=3):
@@ -136,7 +145,6 @@ def extract_subsequences(sequence, lag=3):
 
         subseqs.append((input, output))
 
-    print(len(subseqs))
     return subseqs
 
 

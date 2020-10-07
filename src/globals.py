@@ -22,13 +22,15 @@ parser.add_argument("--lag", type=int, default=3,
 parser.add_argument("--split_ratio", type=float, default=0.65,
                     help="Ratio for splitting the dataset into train-test subsets")
 # MODEL ARGUMENTS
-parser.add_argument("--hidden_dim", type=int, default=2,
+parser.add_argument("--hidden_dim", type=int, default=3,
                     help="Dimension of the LSTM hidden state vector")
 parser.add_argument("--num_layers", type=int, default=1,
                     help="Number of LSTM layers")
 # TRAINING ARGUMENTS
 parser.add_argument("--epochs", type=int, default=2000,
                     help="Number of training epochs")
+parser.add_argument("--bs", type=int, default=52,
+                    help="Batch size")
 parser.add_argument("--lr", type=float, default=5e-4,
                     help="Learning rate")
 parser.add_argument("--wd", type=float, default=6e-12,
