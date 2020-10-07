@@ -38,12 +38,6 @@ The model was trained for **1000 epochs** using Google Colab.
 **Adam optimizer** was used with **learning rate of 8e-4** and a slight **L2 regularization**.
 Along with that **Mean Absolute Error (L1 loss)** function was used. In the training process it showed better results (regarding the convergence) than the Mean Squared Error. Most of the previously mentioned hyperparameters can be modified in the [globals.py](src/globals.py) file.
 
-**Training info:**
-
-| Epochs      | Batch size | Learning rate | Weight decay  |
-| :-------------: | :-------------: | :-------: | :-------: |
-|     1000      | 52       | 8e-4       | 9e-11            |
-
 
 ### Loss
 On the image bellow we can see train and test losses (MAE) during training. Performance evaluation on the test set was performed in a single batch manner.
@@ -58,9 +52,9 @@ On the image below we can see the evaluation on the entire dataset.
 The model is succesfull in estimating the position of the peaks and increasing trend of the sequence, but has difficulty in estimating the exact values of the sequence. With respect to that bellow we can see a table with final evaluation metrics.
 
 
-| Total MAE. | Test MAE. |
+| Total MAE. | Train MAE. | Test MAE. |
 | :-------------: | :-------------: |
-| 1230.9681    | 1453.2430  |
+| 874.7014    | 933.3403  | 1050.8927  |
 
 
 ## Setup & instructions
