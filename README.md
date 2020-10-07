@@ -27,18 +27,18 @@ The model consists of a single layer LSTM and a fully connected layer. The hidde
 **LSTM layer architecture:**
 | Input dim.      | Embedding dim. | Number of layers. |
 | :-------------: | :-------------: | :-------: |
-|     1      | 2       | 1       |
+|     1      | 3       | 1       |
 
 **Weight init**
 
 For the linear layer Uniform Kaiming initialization was used. It resulted in faster convergence than using the default PyTorch initialization for the linear layer. 
 
 ## Training
-The model was trained for **1500 epochs** using Google Colab. **Adam optimizer** was used with **learning rate of 5e-4** and a slight **L2 regularization**.
+The model was trained for **1000 epochs** using Google Colab. **Adam optimizer** was used with **learning rate of 8e-4** and a slight **L2 regularization**.
 Along with that **Mean Absolute Error (L1 loss)** function was used. In the training process it showed better results (regarding the convergence) than the Mean Squared Error. Most of the previously mentioned hyperparameters can be modified in the [globals.py](src/globals.py) file.
 
 ### Loss
-On the image bellow we can see train and test losses (MAE) during training. Train and test sets weren't split into batches during training or evaluation.
+On the image bellow we can see train and test losses (MAE) during training. Performance evaluation on the test set was performed in a single batch manner.
 
 <img src="imgs/loss.png" width="575" height="350">
 
