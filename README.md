@@ -16,7 +16,7 @@ The dataset consists of two columns:
 1. Date in the year-month format
 2. Number of car sales in the according month
 
-Number of car sales feature was extracted and prepared for the RNN model by dividing the dataset into input-output pairs. Input consists of values of car sales in three consecutive time steps, while the target output is the number of car sales in the next consecutive month. Default value of time lag(length of each input example) is three as previously mentioned by it can be modified in the **lag** argument of the *ArgumentParser* object in the [globals.py](src/globals.py) file. With this approach (and these hyperparameters) we created a dataset with 104 input-output pairs.
+Number of car sales feature was extracted and prepared for the RNN model by dividing the dataset into input-output pairs. Input consists of values of car sales in three consecutive time steps, while the target output is the number of car sales in the next consecutive month. Default value of time lag(length of each input example) is three as previously mentioned but it can be modified in the **lag** argument of the *ArgumentParser* object in the [globals.py](src/globals.py) file. With this approach (and these hyperparameters) we created a dataset with 104 input-output pairs.
 
 ### Train-Evaluation split
 Previously created subsequences were split into train and test set with 0.65 split ratio. This hyperparameter can be modified the same way as time lag, in the [globals.py](src/globals.py) file.
@@ -30,14 +30,15 @@ The model consists of a single layer LSTM and a fully connected layer. The hidde
 |     1      | 2       | 1       |
 
 **Weight init**
+
 For the linear layer Uniform Kaiming initialization was used. It resulted in faster convergence than using the default PyTorch initialization for the linear layer. 
 
 ## Training
 The model was trained for **1500 epochs** using Google Colab. **Adam optimizer** was used with **learning rate of 5e-4** and slight **L2 regularization**.
-Along with that **Mean Absolute Error (L1 loss)** function was used. In the training process it showed better results (regarding the convergence) than the Mean Squared Error. All of the previously mentioned hyperparameters can be modified in the [globals.py](src/globals.py) file.
+Along with that **Mean Absolute Error (L1 loss)** function was used. In the training process it showed better results (regarding the convergence) than the Mean Squared Error. Most of the previously mentioned hyperparameters can be modified in the [globals.py](src/globals.py) file.
 
 ### Loss
-On the image bellow we can see train and test losses (MAE) during training. The model was trained and evaluated using an entire train/test set as one batch.
+On the image bellow we can see train and test losses (MAE) during training. Train and test sets weren't split into batches during training or evaluation.
 
 <img src="imgs/loss.png" width="575" height="350">
 
@@ -45,6 +46,7 @@ On the image bellow we can see train and test losses (MAE) during training. The 
 On the image below we can see that evaluation on the entire dataset. 
 
 <img src="imgs/forecast.png" width="575" height="350">
+
 The model is succesfull in estimating the position of the peaks, but has difficulty in estimating the exact values of the sequence. With respect to that bellow we can see table with final evaluation metrics.
 
 
