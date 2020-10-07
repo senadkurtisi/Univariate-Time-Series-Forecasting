@@ -42,7 +42,7 @@ On the image bellow we can see train and test losses (MAE) during training. Trai
 
 <img src="imgs/loss.png" width="575" height="350">
 
-## Evaluation Results
+## <a name="eval_res"></a> Evaluation Results
 On the image below we can see that evaluation on the entire dataset. 
 
 <img src="imgs/forecast.png" width="575" height="350">
@@ -63,5 +63,5 @@ The model is succesfull in estimating the position of the peaks and increasing t
 
     a) If you want to train the model you should execute: ``` python src/main.py --mode train ```. This will load and prepare the dataset and start training it with default values of the hyperparameters which can be found in the [globals.py](src/globals.py) file. You can change them directly in the script or via command line. Example: ``` python src/main.py --mode train --lr 3e-2``` will start the script in the train mode with learning rate set to 3e-2.
     
-    b) If you don't want to train the model you can use model pretrained by me by executing: ``` python src/main.py ``` which will automatically load and prepare the dataset, instantiate the model, load the pretrained model and evaluate it as demonstrated above in [Evaluation results](). Mode argument has default value of "eval" so running former code is same as explicitly saying ``` python src/main.py --mode eval```. If you use any of these two approaches you can set other arguments as well, but most of them will be ignored considering we are not training the RNN, we are just evaluating it. Split ratio is the only argument which would have effect, but only when evaluating test set MAE.
+    b) If you don't want to train the model you can use model pretrained by me by executing: ``` python src/main.py ``` which will automatically load and prepare the dataset, instantiate the model, load the pretrained model and evaluate it as demonstrated above in [Evaluation results](#eval_res). Mode argument has default value of "eval" so running former code is same as explicitly saying ``` python src/main.py --mode eval```. If you use any of these two approaches you can set other arguments as well, but most of them will be ignored considering we are not training the RNN, we are just evaluating it. Split ratio is the only argument which would have effect, but only when evaluating test set MAE.
     
