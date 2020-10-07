@@ -22,7 +22,7 @@ Number of car sales feature was extracted and prepared for the RNN model by divi
 Previously created subsequences were split into train and test set with 0.65 split ratio. This hyperparameter can be modified the same way as time lag, in the [globals.py](src/globals.py) file.
 
 ## Model
-The model consists of a single layer LSTM and a fully connected layer. The hidden cells values are fed into a FC layer which has a linear activation.
+The model consists of a single layer LSTM and a fully connected layer. The hidden cells values of the last layer of LSTM are fed into a FC layer which has a linear activation.
 
 **LSTM layer architecture:**
 | Input dim.      | Embedding dim. | Number of layers. |
@@ -47,7 +47,7 @@ On the image below we can see that evaluation on the entire dataset.
 
 <img src="imgs/forecast.png" width="575" height="350">
 
-The model is succesfull in estimating the position of the peaks, but has difficulty in estimating the exact values of the sequence. With respect to that bellow we can see table with final evaluation metrics.
+The model is succesfull in estimating the position of the peaks and increasing trend of the sequence, but has difficulty in estimating the exact values of the sequence. With respect to that bellow we can see table with final evaluation metrics.
 
 
 | Total MAE. | Test MAE. |
