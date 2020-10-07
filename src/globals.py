@@ -10,7 +10,7 @@ loss_func = L1Loss()
 
 parser = ArgumentParser()
 parser.add_argument("--mode", type=str, choices=["train", "eval"],
-                    default=True, help="Are we training or testing?")
+                    default="eval", help="Are we training or testing?")
 parser.add_argument("--pretrained_path", type=str,
                     default="pretrained/car_sales.pt",
                     help="Location of the pretrained net")

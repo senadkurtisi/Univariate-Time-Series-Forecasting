@@ -1,0 +1,5 @@
+lag = 3
+hidden = 2
+lr = 5e-4
+epochs = 1500
+wd = 6e-12

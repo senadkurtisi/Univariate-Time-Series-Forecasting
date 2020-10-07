@@ -136,6 +136,7 @@ def extract_subsequences(sequence, lag=3):
 
         subseqs.append((input, output))
 
+    print(len(subseqs))
     return subseqs
 
 

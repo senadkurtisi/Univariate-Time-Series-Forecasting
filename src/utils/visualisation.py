@@ -5,6 +5,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+x_ticks = list()
+tick_positions = list()
+
+
 def show_evaluation(net, dataset, scaler, debug=True):
     ''' Evaluates performance of the RNN on the entire
         dataset, and shows the prediction as well as
@@ -33,6 +37,9 @@ def show_evaluation(net, dataset, scaler, debug=True):
     plt.axvline(x=total_train_size, c='r')
     plt.plot(dataset)
     plt.plot(test_predict)
+    plt.xticks(tick_positions, x_ticks, size='small')
+    plt.xlabel('Year-Month')
+    plt.ylabel("Number of car sales")
     plt.title('Univariate Time-Series Forecast')
     plt.legend(['Train-Test split', 'Target', 'Prediction'])
     plt.show()
@@ -48,7 +55,7 @@ def show_evaluation(net, dataset, scaler, debug=True):
 
         print(f"Total MSE:  {total_mse:.4f}  |  Total MAE:  {total_mae:.4f}")
         print(f"Test MSE:  {test_mse:.4f}   |  Test MAE:  {test_mae:.4f}")
-        
+
 
 def show_loss(history):
     ''' Display train and evaluation loss
@@ -74,13 +81,13 @@ def display_dataset(dataset, xlabels):
         xlabels(numpy.ndarray): strings representing
                                  according dates
     '''
+    global x_ticks
+    global tick_positions
     # We can't show every date in the dataset
     # on the x axis because we couldn't see
     # any label clearly. So we extract every
     # n-th label/tick
     segment = int(len(dataset) / 6)
-    x_ticks = list()
-    tick_positions = list()
 
     for i, date in enumerate(xlabels):
         if i > 0 and (i + 1) % segment == 0:
@@ -94,5 +101,7 @@ def display_dataset(dataset, xlabels):
     plt.figure(figsize=(8, 5))
     plt.plot(dataset)
     plt.title('Monthly car sales')
+    plt.xlabel('Year-Month')
+    plt.ylabel("Number of car sales")
     plt.xticks(tick_positions, x_ticks, size='small')
     plt.show()
