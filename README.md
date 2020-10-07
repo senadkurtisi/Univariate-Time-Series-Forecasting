@@ -54,7 +54,7 @@ The model is succesfull in estimating the position of the peaks and increasing t
 
 | Total MAE. | Train MAE. | Test MAE. |
 | :-------------: | :-------------: | :-------------: |
-| 874.7014    | 933.3403  | 1050.8927  |
+| 974.7014    | 933.3403  | 1050.8927  |
 
 
 ## Setup & instructions
